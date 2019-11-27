@@ -12,10 +12,9 @@ public class TextEditor
 {
 
 	private JFrame frmCseTextEditor;
+	private Loadfile lf;
+	private SaveAs sa;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) 
 	{
 		EventQueue.invokeLater(new Runnable() 
@@ -35,18 +34,10 @@ public class TextEditor
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
-	
 	public TextEditor() 
 	{
 		initialize();
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	
 	private void initialize() 
 	{
@@ -62,7 +53,8 @@ public class TextEditor
 			@Override
 			public void mouseClicked(MouseEvent arg0) 
 			{
-				// handle mouse click
+				lf = new Loadfile();
+				lf.load();
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
