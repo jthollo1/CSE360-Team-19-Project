@@ -14,7 +14,7 @@ public class Loadfile
 	{
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileFilter(new FileNameExtensionFilter("*.txt", "txt"));
-		Scanner in = null;
+		Scanner in = null; 
 		
 		if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 		{
