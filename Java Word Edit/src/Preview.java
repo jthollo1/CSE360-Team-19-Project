@@ -1,4 +1,8 @@
 
-public class Preview {
-
+public class Preview 
+{
+	public Preview()
+	{
+		// constructor
+	}
 }

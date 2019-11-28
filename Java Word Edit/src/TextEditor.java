@@ -12,6 +12,7 @@ public class TextEditor
 {
 
 	private JFrame frmCseTextEditor;
+	private Format f;
 	private Loadfile lf;
 	private SaveAs sa;
 
@@ -53,8 +54,14 @@ public class TextEditor
 			@Override
 			public void mouseClicked(MouseEvent arg0) 
 			{
+				f = new Format();
 				lf = new Loadfile();
-				lf.load();
+				String s = lf.load();
+				
+				s = f.limit(s);
+				
+				System.out.println(s);
+				
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));

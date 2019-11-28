@@ -5,26 +5,36 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Loadfile 
 {
+	String output = "";
+			
 	public Loadfile()
 	{
-		//constructor
+		// Constructor
 	}
 	
-	public void load()
+	public String load()
 	{
+		// setup file chooser
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileFilter(new FileNameExtensionFilter("*.txt", "txt"));
-		Scanner in = null; 
+		
+		// setup Scanner input
+		Scanner in = null;
+		
+		// Declare variables
+		String line = "";
 		
 		if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 		{
+			// setup File
 			File selectedFile = chooser.getSelectedFile();
 			String extension = getFileExtension(selectedFile);
-			System.out.println(extension);
+			
+			// System.out.println(extension); // Used to check detected file extension
 			
 			if(extension.equals("txt") == false)
 			{
-				// error for wrong file type
+				// Wrong file type error
 			}
 			else
 			{
@@ -34,18 +44,23 @@ public class Loadfile
 				} 
 				catch (FileNotFoundException e) 
 				{
+					// File not found error
 					e.printStackTrace();
 				}
 				
 				while(in.hasNextLine())
 				{
-					String line = in.nextLine();
-					System.out.println(line);
+					line = in.nextLine();
+					output += line;
 				}
 			}
 		}
+		
+		return output; // returning string that contains entire file
 	}
 	
+	
+	// This method lets us filter file extension
     private static String getFileExtension(File file) 
     {
         String fileName = file.getName();
