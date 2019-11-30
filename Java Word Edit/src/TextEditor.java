@@ -58,7 +58,7 @@ public class TextEditor
 				//int i = 0;
 				
 				s = lf.load();
-				s = F.leftJ(s,1,1);
+				s = F.rightJ(s,1,2);
 				
 				System.out.println(s);
 				

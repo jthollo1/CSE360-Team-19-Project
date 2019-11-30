@@ -4,7 +4,7 @@ public class Format
 {
 	private String output = "";
 	private String temp = "";
-	private ArrayList <String> arr = new ArrayList <String>();
+	private ArrayList <String> arr;
 	
 	public Format()
 	{
@@ -14,6 +14,7 @@ public class Format
 	public String leftJ(String input, int lineSpace, int columns)
 	{
 		// This method will make all text below marker left justified
+		arr = new ArrayList <String>();
 		String s = input.replaceAll("\n", " ");
 		String word[] = s.split(" ");
 		String lSpace = LineSpace(lineSpace);
@@ -74,56 +75,7 @@ public class Format
 				}
 			}
 		}
-	
-		if(columns == 1)
-		{
-			for(int i = 0; i < arr.size(); i++)
-			{
-				output += arr.get(i);
-			}
-		}
-		else
-		{
-			if((arr.size() % 2) == 0)
-			{
-				Half = (arr.size() / 2);
-				arrSize = (arr.size() / 2);
-				even = true;
-			}
-			else
-			{
-				Half = ((arr.size() / 2) + 1);
-				arrSize = (arr.size() / 2) + 1;
-				even = false;
-			}
-			
-			for(int i = 0; i < arrSize; i++)
-			{
-				if(even == true)
-				{
-					if(Half < arr.size() - 1)
-					{
-						output += arr.get(i).replaceAll("\n", "") + space + arr.get(Half).replaceAll("\n", "") + lSpace;
-					}
-					else
-					{
-						output += arr.get(i).replaceAll("\n", "") + space + arr.get(Half).replaceAll("\n", "");
-					}
-				}
-				else if(even == false)
-				{
-					if(Half < arr.size())
-					{
-						output += arr.get(i).replaceAll("\n", "") + space + arr.get(Half).replaceAll("\n", "") + lSpace;
-					}
-					else
-					{
-						output += arr.get(i).replaceAll("\n", "");
-					}
-				}
-				Half++;
-			}
-		}
+		output = cformat(arr,lineSpace,columns);
 		
 		return output;
 	}
@@ -131,56 +83,42 @@ public class Format
 	public String rightJ(String input, int lineSpace, int columns)
 	{
 		// This method will make all text below marker right justified
-			String rtemp = "";
-			String s = input.replaceAll("\n", " ");
-			String word[] = s.split(" ");
-			String lSpace = LineSpace(lineSpace);
-			String space = "          ";
-			Boolean even;
-			int cLength = Columns(columns);
-			int lSize = 0;
-			int sSize = 0;
-			int nextwLength = 0;
-			int Half = 0;
-			int arrSize = 0;
-			
-			for(int i = 0; i < word.length; i++)
+		arr = new ArrayList <String>();
+		boolean end = false;
+		String rtemp = "";
+		String s = input.replaceAll("\n", " ");
+		String word[] = s.split(" ");
+		String lSpace = LineSpace(lineSpace);
+		int cLength = Columns(columns);
+		int lSize = 0;
+		int sSize = 0;
+		int nextwLength = 0;
+		
+		for(int i = 0; i < word.length; i++)
+		{
+			if(i != word.length - 1)
 			{
-				if(i != word.length - 1)
+				nextwLength = word[i+1].length();
+			}
+			
+			lSize += word[i].length();
+			
+			if(lSize < cLength && word[i].length() != 0 && end == false)
+			{
+				if(i == word.length - 1 || ((lSize + nextwLength + 1) >= cLength))
 				{
-					nextwLength = word[i+1].length() + 1;
+					temp += word[i];
+					end = true;
+				}
+				else				
+				{
+					temp += word[i] + " ";
+					lSize += 1;
 				}
 				
-				lSize += word[i].length();
-				
-				if(lSize < cLength && word[i].length() != 0)
+				if(i + 1 == word.length)
 				{
-					if(i == word.length - 1 || ((lSize + nextwLength) >= cLength))
-					{
-						temp += word[i];
-					}
-					else
-					{
-						temp += word[i] + " ";
-						lSize += 1;
-					}
-					
-					if(i + 1 == word.length)
-					{
-						sSize = cLength - lSize;
-						
-						for(int j = 0; j < sSize; j++)
-						{
-							rtemp += " ";
-						}
-						
-						rtemp += temp;
-						arr.add(rtemp);
-					}
-				}
-				else if ((lSize + nextwLength) > cLength)
-				{
-					sSize = cLength - (lSize -= word[i].length());
+					sSize = cLength - lSize;
 					
 					for(int j = 0; j < sSize; j++)
 					{
@@ -189,66 +127,33 @@ public class Format
 					
 					rtemp += temp;
 					arr.add(rtemp);
-					
-					rtemp = "";
-					temp = "";
-					lSize = 0;
-					
-					rtemp += lSpace;
-					temp += word[i] + " ";
-					lSize = word[i].length() + 1;
 				}
 			}
-		
-			if(columns == 1)
+			else if (lSize >= cLength || end == true)
 			{
-				for(int i = 0; i < arr.size(); i++)
+				sSize = cLength - (lSize -= word[i].length());
+				
+				for(int j = 0; j < sSize; j++)
 				{
-					output += arr.get(i);
-				}
-			}
-			else
-			{
-				if((arr.size() % 2) == 0)
-				{
-					Half = (arr.size() / 2);
-					arrSize = (arr.size() / 2);
-					even = true;
-				}
-				else
-				{
-					Half = ((arr.size() / 2) + 1);
-					arrSize = (arr.size() / 2) + 1;
-					even = false;
+					rtemp += " ";
 				}
 				
-				for(int i = 0; i < arrSize; i++)
-				{
-					if(even == true)
-					{
-						if(Half < arr.size() - 1)
-						{
-							output += arr.get(i).replaceAll("\n", "") + space + arr.get(Half).replaceAll("\n", "") + lSpace;
-						}
-						else
-						{
-							output += arr.get(i).replaceAll("\n", "") + space + arr.get(Half).replaceAll("\n", "");
-						}
-					}
-					else if(even == false)
-					{
-						if(Half < arr.size())
-						{
-							output += arr.get(i).replaceAll("\n", "") + space + arr.get(Half).replaceAll("\n", "") + lSpace;
-						}
-						else
-						{
-							output += arr.get(i).replaceAll("\n", "");
-						}
-					}
-					Half++;
-				}
+				rtemp += temp;
+				arr.add(rtemp);
+				
+				rtemp = "";
+				temp = "";
+				lSize = 0;
+				end = false;
+				
+				rtemp += lSpace;
+				temp += word[i] + " ";
+				lSize = word[i].length() + 1;
 			}
+		}
+	
+		output = cformat(arr,lineSpace,columns);
+
 		return output;
 	}
 	
@@ -281,6 +186,70 @@ public class Format
 		}
 		
 		return n;
+	}
+	private String cformat(ArrayList <String> a, int lineSpace, int columns)
+	{
+		// This method will format the columns
+		arr = new ArrayList <String>();
+		arr = a;
+		String lSpace = LineSpace(lineSpace);
+		String s = "";
+		String space = "          ";
+		int Half = 0;
+		int arrSize = 0;
+		boolean even;
+		
+		if(columns == 1)
+		{
+			for(int i = 0; i < arr.size(); i++)
+			{
+				s += arr.get(i);
+			}
+		}
+		else
+		{
+			if((arr.size() % 2) == 0)
+			{
+				Half = (arr.size() / 2);
+				arrSize = (arr.size() / 2);
+				even = true;
+			}
+			else
+			{
+				Half = ((arr.size() / 2) + 1);
+				arrSize = (arr.size() / 2) + 1;
+				even = false;
+			}
+			
+			for(int i = 0; i < arrSize; i++)
+			{
+				if(even == true)
+				{
+					if(Half < arr.size() - 1)
+					{
+						s += arr.get(i).replaceAll("\n", "") + space + arr.get(Half).replaceAll("\n", "") + lSpace;
+					}
+					else
+					{
+						s += arr.get(i).replaceAll("\n", "") + space + arr.get(Half).replaceAll("\n", "");
+					}
+				}
+				else if(even == false)
+				{
+					if(Half < arr.size())
+					{
+						s += arr.get(i).replaceAll("\n", "") + space + arr.get(Half).replaceAll("\n", "") + lSpace;
+					}
+					else
+					{
+						s += arr.get(i).replaceAll("\n", "");
+					}
+				}
+				Half++;
+			}
+		}
+		
+		return s;
 	}
 	
 	private String LineSpace(int lineSpace)
