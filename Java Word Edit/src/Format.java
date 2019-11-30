@@ -22,7 +22,8 @@ public class Format
 		int cLength = Columns(columns);
 		int lSize = 0;
 		int nextwLength = 0;
-		int secondHalf;
+		int Half = 0;
+		int arrSize = 0;
 		
 		for(int i = 0; i < word.length; i++)
 		{
@@ -85,30 +86,42 @@ public class Format
 		{
 			if((arr.size() % 2) == 0)
 			{
-				secondHalf = (arr.size() / 2);
+				Half = (arr.size() / 2);
+				arrSize = (arr.size() / 2);
 				even = true;
 			}
 			else
 			{
-				secondHalf = ((arr.size() / 2) + 1);
+				Half = ((arr.size() / 2) + 1);
+				arrSize = (arr.size() / 2) + 1;
 				even = false;
 			}
 			
-			for(int i = 0; i <= arr.size() / 2; i++)
+			for(int i = 0; i < arrSize; i++)
 			{
-				if(secondHalf < arr.size())
+				if(even == true)
 				{
-					output += arr.get(i).replaceAll("\n", "") + space + arr.get(secondHalf).replaceAll("\n", "") + "\n";
-					secondHalf++;
+					if(Half < arr.size() - 1)
+					{
+						output += arr.get(i).replaceAll("\n", "") + space + arr.get(Half).replaceAll("\n", "") + lSpace;
+					}
+					else
+					{
+						output += arr.get(i).replaceAll("\n", "") + space + arr.get(Half).replaceAll("\n", "");
+					}
 				}
-				else if(even == true)
+				else if(even == false)
 				{
-					secondHalf++;
+					if(Half < arr.size())
+					{
+						output += arr.get(i).replaceAll("\n", "") + space + arr.get(Half).replaceAll("\n", "") + lSpace;
+					}
+					else
+					{
+						output += arr.get(i).replaceAll("\n", "");
+					}
 				}
-				else
-				{
-					output += arr.get(i).replaceAll("\n", "");
-				}
+				Half++;
 			}
 		}
 		
