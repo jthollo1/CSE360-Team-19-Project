@@ -53,7 +53,15 @@ public class Loadfile
 				while(in.hasNextLine())
 				{
 					line = in.nextLine();
-					output += line;
+					
+					if(in.hasNextLine() == true)
+					{
+						output += line + "\n";
+					}
+					else
+					{
+						output += line;
+					}
 				}
 			}
 		}

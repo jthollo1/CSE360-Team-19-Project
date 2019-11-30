@@ -55,9 +55,10 @@ public class TextEditor
 			public void mouseClicked(MouseEvent arg0) 
 			{
 				String s = "";
+				//int i = 0;
 				
 				s = lf.load();
-				//s = F.leftJ(s,1,1);
+				s = F.leftJ(s,1,1);
 				
 				System.out.println(s);
 				
