@@ -1,63 +1,62 @@
+import java.util.*;
 
 public class Format 
 {
-	int MaxLength = 80;
 	String output = "";
+	String temp = "";
 	
 	public Format()
 	{
 		// Constructor
 	}
 	
-	public String limit(String input)
-	{
-		// This method will limit the lines to 80 chars
-		int j = 0;
-		
-		for(int i = 0; i < input.length(); i++)
-		{
-			output += input.charAt(i);
-			j++;
-			
-			if(j == MaxLength && input.charAt(i) != '\n')
-			{
-				output += "\n";
-				j = 0;
-			}
-		}
-		
-		return output;
-	}
-	
-	public String rightJ(String input)
-	{
-		// This method will make all text below marker right justified
-		
-		return output;
-	}
-	
-	public String leftJ(String input)
+	public String leftJ(String input, int lineSpace, int columns)
 	{
 		// This method will make all text below marker left justified
 		
 		return output;
 	}
 	
-	public String centerJ(String input)
+	public String rightJ(String input, int lineSpace, int columns)
+	{
+		// This method will make all text below marker right justified
+		
+		
+		return output;
+	}
+	
+	public String centerJ(String input, int lineSpace, int columns)
 	{
 		// This method will make all text below marker center justified
 		
 		return output;
 	}
 	
-	public String title(String input)
+	public String title(String input, int lineSpace)
 	{
 		// This method will make line below marker center justified
 		
 		return output;
 	}
 	
-	public String indent(String input)
+	private int Columns(int columns)
+	{
+		// This method will determine the number of columns
+		int n;
+		
+		if(columns == 1)
+		{
+			n = 80;
+		}
+		else
+		{
+			n = 35;
+		}
+		
+		return n;
+	}
+	
+	/*public String indent(String input)
 	{
 		// This method will add an indent to line below marker
 		
@@ -71,37 +70,9 @@ public class Format
 		return output;
 	}
 	
-	public String singleSpace(String input)
-	{
-		// This method will remove spaces between lines
-		
-		return output;
-	}
-	
-	public String doubleSpace(String input)
-	{
-		// This method will add a space between lines
-		
-		return output;
-	}
-	
 	public String block(String input)
 	{
 		// This method will indent multiple lines (10 space indent)
-		
-		return output;
-	}
-	
-	public String divide(String input)
-	{
-		// This method will split the string into 2 columns, 35 - 10 - 35
-		
-		return output;
-	}
-	
-	public String conjoin(String input)
-	{
-		// This method will combine the string into a single 80 character column
 		
 		return output;
 	}
@@ -111,5 +82,5 @@ public class Format
 		// This method will add a blank line below the marker
 		
 		return output;
-	}
+	}*/
 }

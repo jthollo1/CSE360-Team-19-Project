@@ -14,6 +14,8 @@ public class Loadfile
 	
 	public String load()
 	{
+		// This method let's us select a file to load and turns it into a string
+		
 		// setup file chooser
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileFilter(new FileNameExtensionFilter("*.txt", "txt"));
@@ -59,14 +61,19 @@ public class Loadfile
 		return output; // returning string that contains entire file
 	}
 	
-	
-	// This method lets us filter file extension
     private static String getFileExtension(File file) 
     {
+    	// This method lets us filter file extension
+    	
         String fileName = file.getName();
         
         if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+        {
         	return fileName.substring(fileName.lastIndexOf(".")+1);
-        else return "";
+        }
+        else 
+        {
+        	return "";
+        }
     }
 }

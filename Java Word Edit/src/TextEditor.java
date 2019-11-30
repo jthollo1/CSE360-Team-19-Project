@@ -12,9 +12,9 @@ public class TextEditor
 {
 
 	private JFrame frmCseTextEditor;
-	private Format f;
-	private Loadfile lf;
-	private SaveAs sa;
+	private Format F = new Format();
+	private Loadfile lf = new Loadfile();
+	private SaveAs sa = new SaveAs();
 
 	public static void main(String[] args) 
 	{
@@ -54,11 +54,10 @@ public class TextEditor
 			@Override
 			public void mouseClicked(MouseEvent arg0) 
 			{
-				f = new Format();
-				lf = new Loadfile();
-				String s = lf.load();
+				String s = "";
 				
-				s = f.limit(s);
+				s = lf.load();
+				//s = F.leftJ(s,1,1);
 				
 				System.out.println(s);
 				
