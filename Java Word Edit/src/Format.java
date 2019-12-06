@@ -11,17 +11,35 @@ public class Format
 		// Constructor
 	}
 	
-	public String leftJ(String input, int lineSpace, int columns)
+	public String leftJ(String input, int lineSpace, int columns, boolean indent, boolean block)
 	{
 		// This method will make all text below marker left justified
 		arr = new ArrayList <String>();
+		output = "";
+		temp = "";
 		String s = input.replaceAll("\n", " ");
 		String word[] = s.split(" ");
 		String lSpace = LineSpace(lineSpace);
 		String space = "          ";
 		Boolean even;
 		int cLength = Columns(columns);
-		int lSize = 0;
+		int lSize;
+		boolean needspace = false;
+		if(indent == true)
+		{
+			lSize = 5;
+			temp += "     ";
+		}
+		else if(block == true)
+		{
+			lSize = 10;
+			temp += "          ";
+		}
+		else
+		{
+			lSize = 0;
+		}
+		
 		int nextwLength = 0;
 		int Half = 0;
 		int arrSize = 0;
@@ -39,7 +57,12 @@ public class Format
 			{
 				if(lSize == cLength || i == word.length - 1 || ((lSize + nextwLength) > cLength))
 				{
+					if(lSize == cLength)
+					{
+						needspace = true;
+					}
 					temp += word[i];
+					
 				}
 				else if((lSize + nextwLength) == cLength)
 				{
@@ -59,19 +82,56 @@ public class Format
 			}
 			else if ((lSize + nextwLength) > cLength)
 			{
+				
 				if(lSize == cLength)
 				{
 					temp += word[i];
+					
 				}
 				else
 				{
+					String ltemp = "";
+					
+					int sSize = cLength - (lSize -= word[i].length());
+					
+					for(int j = 0; j < sSize; j++)
+					{
+						ltemp += " ";
+					}
+					
+					temp += ltemp;
 					arr.add(temp);
 					
-					temp = "";
-					lSize = 0;
 					
-					temp += lSpace + word[i] + " ";
-					lSize = word[i].length() + 1;
+					temp = "";
+					/*if(needspace == true)
+					{
+						temp += " ";
+						needspace = false;
+					}*/
+					
+					lSize = 0;
+					if(block == true)
+					{
+						temp += lSpace + "          " + word[i] + " ";
+						lSize = 10;
+						lSize += word[i].length() + 1;
+					}
+					else
+					{
+						
+						temp += lSpace + word[i] + " ";
+						lSize = word[i].length() + 1;
+						
+						if(i == word.length - 1)
+						{
+							arr.add(temp);
+						}
+						
+					}
+					
+					
+					
 				}
 			}
 		}
@@ -84,6 +144,8 @@ public class Format
 	{
 		// This method will make all text below marker right justified
 		arr = new ArrayList <String>();
+		output = "";
+		temp = "";
 		boolean end = false;
 		String rtemp = "";
 		String s = input.replaceAll("\n", " ");
@@ -159,16 +221,262 @@ public class Format
 	
 	public String centerJ(String input, int lineSpace, int columns)
 	{
-		// This method will make all text below marker center justified
+		// This method will make all text below marker right justified
+		arr = new ArrayList <String>();
+		output = "";
+		temp = "";
+		boolean end = false;
+		String rtemp1 = "";
+		String rtemp2 = "";
+		String s = input.replaceAll("\n", " ");
+		String word[] = s.split(" ");
+		String lSpace = LineSpace(lineSpace);
+		int cLength = Columns(columns);
+		int lSize = 0;
+		int sSize = 0;
+		int nextwLength = 0;
 		
+		for(int i = 0; i < word.length; i++)
+		{
+			if(i != word.length - 1)
+			{
+				nextwLength = word[i+1].length();
+			}
+			
+			lSize += word[i].length();
+			
+			if(lSize < cLength && word[i].length() != 0 && end == false)
+			{
+				if(i == word.length - 1 || ((lSize + nextwLength + 1) >= cLength))
+				{
+					temp += word[i];
+					end = true;
+				}
+				else				
+				{
+					temp += word[i] + " ";
+					lSize += 1;
+				}
+				
+				if(i + 1 == word.length)
+				{
+					sSize = cLength - lSize;
+					
+					for(int j = 0; j < sSize/2; j++)
+					{
+						rtemp1 += " ";
+					}
+					
+					rtemp1 += temp;
+					
+					for(int j = sSize/2; j < sSize; j++)
+					{
+						rtemp2 += " ";
+					}
+					
+					rtemp1 += rtemp2;
+					arr.add(rtemp1);
+				}
+			}
+			else if (lSize >= cLength || end == true)
+			{
+				sSize = cLength - (lSize -= word[i].length());
+				
+				for(int j = 0; j < sSize/2; j++)
+				{
+					rtemp1 += " ";
+				}
+				
+				rtemp1 += temp;
+				
+				for(int j = sSize/2; j < sSize; j++)
+				{
+					rtemp2 += " ";
+				}
+				
+				rtemp1 += rtemp2;
+				arr.add(rtemp1);
+				
+				rtemp1 = "";
+				rtemp2 = "";
+				temp = "";
+				lSize = 0;
+				end = false;
+				
+				rtemp1 += lSpace;
+				temp += word[i] + " ";
+				lSize = word[i].length() + 1;
+			}
+		}
+	
+		output = cformat(arr,lineSpace,columns);
+
 		return output;
 	}
 	
-	public String title(String input, int lineSpace)
+	public String title(String input, int lineSpace, int columns)
 	{
-		// This method will make line below marker center justified
+		// This method will make line below marker title centered
 		
-		return output;
+				arr = new ArrayList <String>();
+				output = "";
+				temp = "";
+				boolean end = false;
+				boolean firstline = false;
+				String rtemp1 = "";
+				String rtemp2 = "";
+				String s = input.replaceAll("\n", " ");
+				String word[] = s.split(" ");
+				String lSpace = LineSpace(lineSpace);
+				int cLength = Columns(columns);
+				int lSize = 0;
+				int sSize = 0;
+				int nextwLength = 0;
+				int i;
+				
+				for(i = 0; i < word.length && firstline==false; i++)
+				{
+					
+					
+					if(i != word.length - 1)
+					{
+						nextwLength = word[i+1].length();
+					}
+					
+					lSize += word[i].length();
+					
+					if(lSize < cLength && word[i].length() != 0 && end == false)
+					{
+						if(i == word.length - 1 || ((lSize + nextwLength + 1) >= cLength))
+						{
+							temp += word[i];
+							end = true;
+							
+						}
+						else				
+						{
+							temp += word[i] + " ";
+							lSize += 1;
+						}
+						
+						if(end == true)
+						{
+							firstline = true;
+							sSize = cLength - lSize;
+							
+							for(int j = 0; j < sSize/2; j++)
+							{
+								rtemp1 += " ";
+							}
+							
+							rtemp1 += temp;
+							
+							for(int j = sSize/2; j < sSize; j++)
+							{
+								rtemp2 += " ";
+							}
+							
+							rtemp1 += rtemp2;
+							arr.add(rtemp1);
+						}
+					}
+					else if (lSize >= cLength || end == true)
+					{
+						
+						sSize = cLength - (lSize -= word[i].length());
+						
+						for(int j = 0; j < sSize/2; j++)
+						{
+							rtemp1 += " ";
+						}
+						
+						rtemp1 += temp;
+						
+						for(int j = sSize/2; j < sSize; j++)
+						{
+							rtemp2 += " ";
+						}
+						
+						rtemp1 += rtemp2;
+						arr.add(rtemp1);
+						
+						
+						rtemp1 = "";
+						rtemp2 = "";
+						temp = "";
+						lSize = 0;
+						end = false;
+						
+						rtemp1 += lSpace;
+						temp += word[i] + " ";
+						lSize = word[i].length() + 1;
+						
+					}
+				}
+				
+				//gives the centered top line
+				
+				//cLength = 0;
+				//ArrayList<String> arr1 = new ArrayList<String>();
+				lSize = 0;
+				
+				temp = "";
+				temp += lSpace;
+
+				for(int j = i; j < word.length; j++)
+				{
+					if(j != word.length - 1)
+					{
+						nextwLength = word[j+1].length();
+					}
+					
+					lSize += word[j].length();
+					
+					if(lSize <= cLength && word[j].length() != 0)
+					{
+						if(lSize == cLength || j == word.length - 1 || ((lSize + nextwLength) > cLength))
+						{
+							temp += word[j];
+						}
+						else if((lSize + nextwLength) == cLength)
+						{
+							temp += word[j];
+							lSize += 1;
+						}
+						else
+						{
+							temp += word[j] + " ";
+							lSize += 1;
+						}
+						
+						if(j + 1 == word.length)
+						{
+							arr.add(temp);
+						}
+					}
+					else if ((lSize + nextwLength) > cLength)
+					{
+						if(lSize == cLength)
+						{
+							temp += word[j];
+						}
+						else
+						{
+							arr.add(temp);
+							
+							temp = "";
+							lSize = 0;
+							
+							temp += lSpace + word[j] + " ";
+							lSize = word[j].length() + 1;
+						}
+					}
+						
+					
+				}
+					
+				output = cformat(arr,lineSpace, columns);
+				return output;	
 	}
 	
 	private int Columns(int columns)
@@ -187,6 +495,17 @@ public class Format
 		
 		return n;
 	}
+	
+	public String oneColumn(String input)
+	{
+		return leftJ(input, 1, 1, false, false);
+	}
+	
+	public String twoColumn(String input)
+	{
+		return leftJ(input, 1, 2, false, false);
+	}
+	
 	private String cformat(ArrayList <String> a, int lineSpace, int columns)
 	{
 		// This method will format the columns
@@ -269,31 +588,41 @@ public class Format
 		return s;
 	}
 	
-	/*public String indent(String input)
+	public String indent(String input)
 	{
-		// This method will add an indent to line below marker
+		/*This method will add an indent to line below marker
+		//5 spaces at the beginning of the first line*/
+		output = "";
 		
+		String indented = "     " + input;
+		output = leftJ(indented, 1, 1, true, false);
 		return output;
 	}
 	
 	public String removeIndent(String input)
 	{
 		// This method will remove an indent to line below marker
+		output = "";
 		
+		output = leftJ(input, 1, 1, false, false);
 		return output;
 	}
 	
 	public String block(String input)
 	{
 		// This method will indent multiple lines (10 space indent)
+		output = "";
 		
+		output = leftJ(input, 1, 1, false, true);
 		return output;
 	}
 	
 	public String blank(String input)
 	{
 		// This method will add a blank line below the marker
+		output = "";
 		
+		output = "\n" + leftJ(input, 1, 1, false, false);
 		return output;
-	}*/
+	}
 }

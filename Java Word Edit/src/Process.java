@@ -23,6 +23,7 @@ public class Process
 		boolean indent = false;
 		boolean block = false;
 		boolean noFlags = true;
+		String output = "";
 		String temp = "";
 		String other = "";
 		String Justify = "left";
@@ -102,7 +103,6 @@ public class Process
 					
 					if(Justify == "left" && other == "")
 					{
-						output = F.leftJ(temp, lineSpace, columns, indent, block);
 					}
 					else if(Justify == "right" && other == "")
 					{
@@ -125,11 +125,11 @@ public class Process
 						output = F.removeIndent(temp);
 					}
 				}
-				else if (noFlags == true)
-				{
-					output = F.leftJ(s, lineSpace, columns, indent, block);
-				}
 			}
+		}
+		if(noFlags == true)
+		{
+			output = F.leftJ(s, 1, 1, false, false);
 		}
 		
 		return output;

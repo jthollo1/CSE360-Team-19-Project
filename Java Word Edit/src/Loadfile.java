@@ -32,7 +32,7 @@ public class Loadfile
 			File selectedFile = chooser.getSelectedFile();
 			String extension = getFileExtension(selectedFile);
 			
-			// System.out.println(extension); // Used to check detected file extension
+			//System.out.println(extension); // Used to check detected file extension
 			
 			if(extension.equals("txt") == false)
 			{
