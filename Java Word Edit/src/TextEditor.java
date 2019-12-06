@@ -158,19 +158,16 @@ public class TextEditor
 			{
 				btnNewButton_3.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent ae) {
-					try {
+
 						String loadTxt = "- [Preview] File successfully previewed!\n";
 						Errorlog.Txt(loadTxt);
 						Errorlog.outputTxt();
 						errorLogCheck = false;
 					JTextArea ta = new JTextArea(40, 80);
-					ta.read(new FileReader("/Users/meeatingchips/eclipse-workspace/CSE360TextEditor/leftj.txt"), null);
+					ta.setText(proc.p(textFile));
 					ta.setEditable(false);
 					JOptionPane.showMessageDialog(btnNewButton_3, new JScrollPane(ta));
-					}
-					catch (IOException ioe) {
-					ioe.printStackTrace();
-					}
+
 					}
 					});
 				}
