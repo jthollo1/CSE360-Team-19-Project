@@ -23,7 +23,7 @@ public class Process
 		boolean indent = false;
 		boolean block = false;
 		boolean noFlags = true;
-		String n = "";
+		String temp = "";
 		String other = "";
 		String Justify = "left";
 		
@@ -36,15 +36,18 @@ public class Process
 				{
 					noFlags = false;
 					
+					word[i] = "";
+					temp = "";
+					
 					for(int h = i; h < word.length; h++)
 					{
 						if(h != word.length - 1 && word[h+1].length() != 0)
 						{
-							n += word[h+1] + " ";
+							temp += word[h+1] + " ";
 						}
 						else if(h != word.length - 1)
 						{
-							n += word[h+1];
+							temp += word[h+1];
 						}
 					}
 					
@@ -99,27 +102,27 @@ public class Process
 					
 					if(Justify == "left" && other == "")
 					{
-						output = F.leftJ(n, lineSpace, columns, indent, block);
+						output = F.leftJ(temp, lineSpace, columns, indent, block);
 					}
 					else if(Justify == "right" && other == "")
 					{
-						output = F.rightJ(n, lineSpace, columns);
+						output = F.rightJ(temp, lineSpace, columns);
 					}
 					else if(Justify == "center" && other == "")
 					{
-						output = F.centerJ(n, lineSpace, columns);
+						output = F.centerJ(temp, lineSpace, columns);
 					}
 					else if(Justify == "title" && other == "")
 					{
-						output = F.title(n, lineSpace, columns);
+						output = F.title(temp, lineSpace, columns);
 					}
 					else if(other == "blank")
 					{
-						output = F.blank(n);
+						output = F.blank(temp);
 					}
 					else if(other == "removeIndent")
 					{
-						output = F.removeIndent(n);
+						output = F.removeIndent(temp);
 					}
 				}
 				else if (noFlags == true)
